@@ -9,15 +9,40 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Hello, world!</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>
   <body>
-    
-    <a 
-      class="btn btn-success" 
-      href="https://www.facebook.com/sharer/sharer.php?app_id=469049293528162&sdk=joey&u=[INSERT LINK IN HERE WITHOUT SPACE]&display=popup&ref=plugin&src=share_button" 
-      onclick="return !window.open(this.href, 'Facebook', 'width=640px,height=580px')">
-      facebook share
-    </a>
+    <div id="app">
+      <a 
+        class="btn btn-success" 
+        v-bind:href="fbsrc"
+        onclick="return !window.open(this.href, 'Facebook', 'width=640px,height=580px')">
+        facebook share
+      </a>
+
+      <a 
+        class="twitter-share-button"
+        v-bind:href="twittersrc"
+        onclick="return !window.open(this.href, 'Twitter', 'width=640px,height:580px')">
+        Tweet
+      </a>
+
+      <a 
+        href="whatsapp://send?text=The text to share!" 
+        data-action="share/whatsapp/share">
+        Share via Whatsapp
+      </a>
+    </div>
+    <script>
+      let link = 'https://developer.linkedin.com/docs/share-on-linkedin'
+      new Vue({
+        el: '#app',
+        data: {
+          fbsrc: `https://www.facebook.com/sharer/sharer.php?app_id=469049293528162&sdk=joey&u=${link}&display=popup&ref=plugin&src=share_button`,
+          twittersrc: `https://twitter.com/intent/tweet?text=${link}`
+        }
+      })
+    </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
