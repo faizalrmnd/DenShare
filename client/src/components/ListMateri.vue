@@ -8,9 +8,9 @@
             <div class="card">
               <img class="card-img-top" :src="materi.image" alt="Card image cap">
               <div class="card-body">
-                <h5 class="card-title">{{ materi.title }}</h5>
+                <!-- <h5 class="card-title"><router-link class="title" to="detailmateri"> {{ materi.title }} </router-link></h5> -->
+                <h5 class="card-title" @click="detailMateri(materi, index)">{{ materi.title }}</h5>
                 <p class="card-text">{{ introLimiter(materi.intro) }}</p>
-                <!-- <a href="#" class="btn btn-primary"><router-link to="/about">Pelajari Materi</router-link></a> -->
               </div>
             </div>
           </li>
@@ -22,7 +22,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'ListMateri',
   computed: {
@@ -31,8 +32,17 @@ export default {
     ])
   },
   methods: {
+    ...mapActions([
+      'currentMateri'
+    ]),
     introLimiter (val) {
       return val.substring(0, 50) + '...'
+    },
+    detailMateri (materi, index) {
+      this.$store.dispatch('currentMateri', materi)
+      this.$router.push('/detailmateri')
+
+      console.log('materi ===> ', materi)
     }
   }
 }
@@ -63,6 +73,13 @@ ul {
 .card-body {
   /* background: rgb(223, 223, 223); */
   height: 280px;
+}
+.title {
+  color: red !important;
+}
+.card-title  {
+  /* color: black !important; */
+  /* background-color: red; */
 }
 
 @media only screen and (max-width: 375px) {

@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    currentMateries: '',
     materis: [
       {
         title: 'Problem Solving',
@@ -65,9 +66,15 @@ export default new Vuex.Store({
     ]
   },
   mutations: {
-
+    currMateriMutation (state, payload) {
+      console.log('mutation get payload => ', payload)
+      state.currentMateries = payload
+    }
   },
   actions: {
-
+    currentMateri ({commit}, payload) {
+      console.log('masuk action store')
+      commit('currMateriMutation', payload)
+    }
   }
 })
