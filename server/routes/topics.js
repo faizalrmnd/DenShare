@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const { addTopic } = require('../controllers/topicController');
+const { addTopic, readAllTopic, readTopicById, readTopicByPhase, updateTopic, deleteTopic } = require('../controllers/topicController');
 
 const multer = require('multer')
-const uploadMidleware = require('../middleware/upload')
+const middlewareAuth = require('../middleware/auth')
+const middlewareUpload = require('../middleware/upload')
 
 const uploaderMem = multer({
   storage: multer.memoryStorage(),
@@ -12,17 +13,13 @@ const uploaderMem = multer({
   }
 })
 
-// const middleware = require('../middlewares/auth')
-
 // /* GET users listing. */
-// router.get('/', middleware.isUser, questionController.getQuestion);
-// router.get('/', middleware.isUser, questionController.getQuestion);
-// router.post('/post', middleware.isUser, questionController.postQuestion);
-// router.put('/update', middleware.isUser, questionController.updateQuestion);
-// router.delete('/delete', middleware.isUser, questionController.removeQuestion);
 
-
-/* GET main endpoint. */
-router.post('/', uploaderMem.single('image'), uploadMidleware.upload, addTopic)
+router.get('/', middlewareAuth.isUser, readAllTopic);
+router.get('/byphase', middlewareAuth.isUser, readTopicByPhase);
+router.get('/:id', readTopicById);
+router.post('/add', uploaderMem.single('image'), middlewareUpload.upload, addTopic);
+router.put('/edit/:id', middlewareAuth.isInstructor, updateTopic);
+router.delete('/delete/:id', middlewareAuth.isInstructor, deleteTopic);
 
 module.exports = router;
