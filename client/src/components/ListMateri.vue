@@ -26,6 +26,9 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'ListMateri',
+  created () {
+    this.$store.dispatch('getAllMateri')
+  },
   computed: {
     ...mapState([
       'materis'

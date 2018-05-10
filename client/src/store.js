@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -72,6 +73,15 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    getAllMateri ({commit}) {
+      axios.get('http://localhost:3000/topics')
+        .then((response) => {
+          console.log(response)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     currentMateri ({commit}, payload) {
       console.log('masuk action store')
       commit('currMateriMutation', payload)
