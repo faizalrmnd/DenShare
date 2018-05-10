@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 let topicSchema = mongoose.Schema({
   title: String,
+  intro: String,
   content: String,
   phase: String,
   image: String
