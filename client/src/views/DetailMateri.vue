@@ -1,11 +1,13 @@
 <template>
-  <div style="width:50%" class="about">
+  <div class="about">
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
-          <h3> {{ currentMateries.title }} </h3>
-          <img :src="currentMateries.image" alt="">
-          <p> {{ currentMateries.phase }} </p>
+        <div class="col-md-12 col-xs-12">
+          <h3 class="title"> {{ currentMateries.title }} </h3>
+          <div class="imagewrap">
+            <img :src="currentMateries.image" alt="">
+          </div>
+          <!-- <p> {{ currentMateries.phase }} </p> -->
           <p> {{ currentMateries.content }} </p>
         </div>
       </div>
@@ -27,6 +29,84 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
+@media only screen and (max-width: 375px) {
+  .title {
+    padding: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    color: grey !important;
+  }
+  .imagewrap {
+    width: 100%;
+    background: red;
+    overflow: hidden;
+  }
+  img {
+    width: 100% !important;
+  }
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 425px) {
+  .title {
+    padding: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    color: grey !important;
+  }
+  .imagewrap {
+    width: 100%;
+    background: red;
+    overflow: hidden;
+  }
+  img {
+    width: 100% !important;
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+@media only screen and (min-width: 858px) {
+
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .title {
+    /* padding: 10px; */
+    font-size: 25px;
+    font-weight: bold;
+    color: grey !important;
+  }
+  .imagewrap {
+    width: 100%;
+    height: 400px;
+    background: red;
+    overflow: hidden;
+  }
+  img {
+    margin-top: -30%;
+    width: 100% !important;
+  }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1024px) {
+  .title {
+    /* padding: 10px; */
+    font-size: 25px;
+    font-weight: bold;
+    color: grey !important;
+  }
+  .imagewrap {
+    width: 100%;
+    height: 400px;
+    background: red;
+    overflow: hidden;
+  }
+  img {
+    margin-top: -30%;
+    width: 100% !important;
+  }
+}
 </style>
