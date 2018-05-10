@@ -1,4 +1,6 @@
 const topic = require("../models/topics")
+const jwt = require('jsonwebtoken');
+
 
 module.exports = {
   addTopic: function(req, res) {
@@ -24,21 +26,26 @@ module.exports = {
   },
   readTopicByPhase: function(req, res) {
     let token = req.headers.token;
+    console.log('masuk fungsi')
     jwt.verify(token, process.env.SECRET, function(err, decoded) {
+      console.log(decoded)
+
       topic
-      .findOne({
-        phase: decoded.phase
-      }, function(err, topic) {
-        if (!err) {
-          res
-            .status(200)
-            .json({topic})
-        } else {
-          res
-            .status(400)
-            .json({err})
-        }
+      .find({ phase: decoded.phase })
+      .exec()
+      .then(topics => {
+        res
+          .status(200)
+          .json({
+            message: 'topic list by phase',
+            topicData: topics
+          })
       })
+      .catch(err => {
+        res
+          .status(400)
+          .json(err)
+      }) 
     })
   },
   readAllTopic: function(req, res) {
