@@ -19,6 +19,7 @@ module.exports = {
                     message: "You need to Login"
                   })
                }else {
+                 console.log('next')
                   next()
                }
              })

@@ -27,15 +27,38 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'ListMateri',
+  data ()  {
+    return {
+      dataByPhase: []
+    }
+  },
   created () {
     let payload = localStorage.getItem('token')
-    this.$store.dispatch('getAllMateri', payload)
+    let phase = localStorage.getItem('phase')
+    let role = localStorage.getItem('role')
+
+    if (role != 'instructor') {
+      this.$store.dispatch('getMateriByPhase', payload)
+    } else {
+      this.$store.dispatch('getAllMateri', payload)
+    }
   },
   computed: {
     ...mapState([
       'materis'
     ])
   },
+  // mounted() {
+  //   console.log('=====>',this.$store.state.materis)
+  //   let phase = localStorage.getItem('phase')
+  //   let data = this.$store.state.materis
+  //   data.forEach(dataNya => {
+  //     if(dataNya.phase == phase) {
+  //       this.dataByPhase.push(dataNya)
+  //     }
+  //   });
+  //   // this.dataByPhase.push(this.$store.state.materis)
+  // },
   methods: {
     ...mapActions([
       'currentMateri'
