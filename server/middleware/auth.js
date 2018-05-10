@@ -11,6 +11,8 @@ module.exports = {
       if(token){
         users.findOne({_id: decoded.id })
              .then(users => {
+              console.log('masuk 200, dapet user')
+
                // console.log(users);
                if(!users){
                   res.status(401).json({
@@ -21,6 +23,7 @@ module.exports = {
                }
              })
              .catch(err =>{
+               console.log('masuk 500, gada user')
                 res.status(500).json({
                   message: err
                 })

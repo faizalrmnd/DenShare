@@ -6,11 +6,12 @@
         <ul>
           <li v-for="(materi, index) in materis" :key="index">
             <div class="card">
-              <img class="card-img-top" :src="materi.image" alt="Card image cap">
+              <img class="card-img-top" :src="materi.image" alt="Card image cap" @click="detailMateri(materi, index)">
               <div class="card-body">
-                <h5 class="card-title">{{ materi.title }}</h5>
-                <p class="card-text">{{ introLimiter(materi.intro) }}</p>
-                <!-- <a href="#" class="btn btn-primary"><router-link to="/about">Pelajari Materi</router-link></a> -->
+                <!-- <h5 class="card-title"><router-link class="title" to="detailmateri"> {{ materi.title }} </router-link></h5> -->
+                <h5 class="card-title" @click="detailMateri(materi, index)">{{ materi.title }}</h5>
+                <!-- <p class="card-text">{{ introLimiter(materi.intro) }}</p> -->
+                <p class="card-text">{{ materi.intro }}</p>
               </div>
             </div>
           </li>
@@ -22,23 +23,38 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'ListMateri',
+  created () {
+    let payload = localStorage.getItem('token')
+    this.$store.dispatch('getAllMateri', payload)
+  },
   computed: {
     ...mapState([
       'materis'
     ])
   },
   methods: {
+    ...mapActions([
+      'currentMateri'
+    ]),
     introLimiter (val) {
-      return val.substring(0, 50) + '...'
+      // return val.substring(0, 50) + '...'
+      return val
+    },
+    detailMateri (materi, index) {
+      this.$store.dispatch('currentMateri', materi)
+      this.$router.push('/detailmateri')
+
+      console.log('materi ===> ', materi)
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 ul {
   margin: 0;
   padding: 0;
@@ -57,12 +73,28 @@ ul {
   float: left;
   margin: 5px 5px !important;
 }
+.list > ul > li:hover {
+  /* width: 212px !important;
+  margin: 4px 5px !important;
+  border: thin solid red; */
+}
 .card-img-top {
   height: 200px;
+}
+.card-img-top:hover {
+  cursor: pointer;
 }
 .card-body {
   /* background: rgb(223, 223, 223); */
   height: 280px;
+}
+.title {
+  color: red !important;
+}
+
+.card-title:hover  {
+  cursor: pointer;
+  color: red;
 }
 
 @media only screen and (max-width: 375px) {
@@ -73,6 +105,11 @@ ul {
     width: 45% !important;
     list-style: none;
     float: left;
+  }
+  .list > ul > li:hover {
+    /* width: 44%px !important;
+    margin: 4px 5px !important;
+    border: thin solid red; */
   }
   .card-img-top {
     height: 100px;
@@ -101,6 +138,11 @@ ul {
     width: 47% !important;
     list-style: none;
     float: left;
+  }
+  .list > ul > li:hover {
+    /* width: 40%px !important;
+    margin: 4px 5px !important;
+    border: thin solid red; */
   }
   .card-img-top {
     height: 120px;

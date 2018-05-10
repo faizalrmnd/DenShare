@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import About from './views/About.vue'
 import Materi from './views/Materi.vue'
 import AddMateri from './views/AddMateri.vue'
+import DetailMateri from './views/DetailMateri.vue'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/addmateri',
       name: 'addmateri',
       component: AddMateri
+    },
+    {
+      path: '/detailmateri/',
+      name: 'detailmateri',
+      component: DetailMateri
     }
   ]
 })
