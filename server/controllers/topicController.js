@@ -2,9 +2,9 @@ const topic = require("../models/topics")
 
 module.exports = {
   addTopic: function(req, res) {
-    const { title, content, phase } = req.body
+    const { title, content, phase, intro } = req.body
     const image = req.imageURL
-    const newTopic = new topic({ title, content, phase, image })
+    const newTopic = new topic({ title, content, phase, intro, image })
 
     newTopic
       .save(function(err, topic) {
@@ -80,7 +80,7 @@ module.exports = {
       })
   },
   updateTopic: function(req, res) {
-    const { title, content, phase, image } = req.body
+    const { title, content, phase, intro, image } = req.body
 
     topic
       .findByIdAndUpdate({
