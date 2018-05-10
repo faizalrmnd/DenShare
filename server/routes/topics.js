@@ -15,7 +15,7 @@ const uploaderMem = multer({
 
 // /* GET users listing. */
 
-router.get('/', middlewareAuth.isInstructor, readAllTopic);
+router.get('/', middlewareAuth.isUser, readAllTopic);
 router.get('/byphase', middlewareAuth.isUser, readTopicByPhase);
 router.get('/:id', readTopicById);
 router.post('/add', uploaderMem.single('image'), middlewareUpload.upload, addTopic);
