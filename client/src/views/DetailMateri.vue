@@ -7,7 +7,7 @@
           <div class="imagewrap">
             <img :src="currentMateries.image" alt="">
           </div>
-          <!-- <p> {{ currentMateries.phase }} </p> -->
+          <p> {{ currentMateries.phase }} </p>
           <p> {{ currentMateries.content }} </p>
         </div>
       </div>

@@ -10,7 +10,8 @@
               <div class="card-body">
                 <!-- <h5 class="card-title"><router-link class="title" to="detailmateri"> {{ materi.title }} </router-link></h5> -->
                 <h5 class="card-title" @click="detailMateri(materi, index)">{{ materi.title }}</h5>
-                <p class="card-text">{{ introLimiter(materi.intro) }}</p>
+                <!-- <p class="card-text">{{ introLimiter(materi.intro) }}</p> -->
+                <p class="card-text">{{ materi.intro }}</p>
               </div>
             </div>
           </li>
@@ -27,7 +28,8 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'ListMateri',
   created () {
-    this.$store.dispatch('getAllMateri')
+    let payload = localStorage.getItem('token')
+    this.$store.dispatch('getAllMateri', payload)
   },
   computed: {
     ...mapState([
@@ -39,7 +41,8 @@ export default {
       'currentMateri'
     ]),
     introLimiter (val) {
-      return val.substring(0, 50) + '...'
+      // return val.substring(0, 50) + '...'
+      return val
     },
     detailMateri (materi, index) {
       this.$store.dispatch('currentMateri', materi)
