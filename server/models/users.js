@@ -4,7 +4,8 @@ let userSchema = mongoose.Schema({
   name: String,
   email: String,
   password: String,
-  role: String
+  role: String,
+  phase: String
 },{
   timestamps: true
 })

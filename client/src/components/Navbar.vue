@@ -42,6 +42,6 @@ a {
 }
 a:hover {
   text-decoration: none;
-  color: white !important
+  /* color: white !important */
 }
 </style>

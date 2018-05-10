@@ -1,73 +1,40 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    materis: [
-      {
-        title: 'Problem Solving',
-        intro: 'Dapat menyelesaikan masalah dalam kode, mengerti logic dasar problem solving',
-        content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure esse corporis inventore maiores repellendus repellat provident nesciunt praesentium aut, totam, facilis corrupti perspiciatis repudiandae? Nemo labore eveniet hic quod ab.',
-        phase: 'Phase 1',
-        image: 'https://www.illumine.co.uk/wp-content/uploads/2016/01/Fotolia_76145133_XS.jpg'
-      },
-      {
-        title: 'Roman Numerals',
-        intro: 'Dapat mengkonversikan sebuah angka menjadi angka romawi',
-        content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure esse corporis inventore maiores repellendus repellat provident nesciunt praesentium aut, totam, facilis corrupti perspiciatis repudiandae? Nemo labore eveniet hic quod ab.',
-        phase: 'Phase 1',
-        image: 'https://www.wikihow.com/images/thumb/6/65/Use-Roman-Numerals-Step-1-Version-3.jpg/aid600223-v4-728px-Use-Roman-Numerals-Step-1-Version-3.jpg'
-      },
-      {
-        title: 'Money Coins',
-        intro: 'Dapat menyelesaikan masalah dalam kode, mengerti logic dasar problem solving',
-        content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure esse corporis inventore maiores repellendus repellat provident nesciunt praesentium aut, totam, facilis corrupti perspiciatis repudiandae? Nemo labore eveniet hic quod ab.',
-        phase: 'Phase 1',
-        image: 'https://img.etsystatic.com/il/56fb2c/812688327/il_340x270.812688327_n0jv.jpg?version=0'
-      },
-      {
-        title: 'Roman Numerals Recursive',
-        intro: 'Dapat menyelesaikan masalah dalam kode, mengerti logic dasar problem solving',
-        content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure esse corporis inventore maiores repellendus repellat provident nesciunt praesentium aut, totam, facilis corrupti perspiciatis repudiandae? Nemo labore eveniet hic quod ab.',
-        phase: 'Phase 1',
-        image: 'https://www.wikihow.com/images/thumb/6/65/Use-Roman-Numerals-Step-1-Version-3.jpg/aid600223-v4-728px-Use-Roman-Numerals-Step-1-Version-3.jpg'
-      },
-      {
-        title: 'Money Coins',
-        intro: 'Dapat menyelesaikan masalah dalam kode, mengerti logic dasar problem solving',
-        content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure esse corporis inventore maiores repellendus repellat provident nesciunt praesentium aut, totam, facilis corrupti perspiciatis repudiandae? Nemo labore eveniet hic quod ab.',
-        phase: 'Phase 1',
-        image: 'https://img.etsystatic.com/il/56fb2c/812688327/il_340x270.812688327_n0jv.jpg?version=0'
-      },
-      {
-        title: 'Roman Numerals Recursive',
-        intro: 'Dapat menyelesaikan masalah dalam kode, mengerti logic dasar problem solving',
-        content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure esse corporis inventore maiores repellendus repellat provident nesciunt praesentium aut, totam, facilis corrupti perspiciatis repudiandae? Nemo labore eveniet hic quod ab.',
-        phase: 'Phase 1',
-        image: 'https://www.wikihow.com/images/thumb/6/65/Use-Roman-Numerals-Step-1-Version-3.jpg/aid600223-v4-728px-Use-Roman-Numerals-Step-1-Version-3.jpg'
-      },
-      {
-        title: 'Money Coins',
-        intro: 'Dapat menyelesaikan masalah dalam kode, mengerti logic dasar problem solving',
-        content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure esse corporis inventore maiores repellendus repellat provident nesciunt praesentium aut, totam, facilis corrupti perspiciatis repudiandae? Nemo labore eveniet hic quod ab.',
-        phase: 'Phase 1',
-        image: 'https://img.etsystatic.com/il/56fb2c/812688327/il_340x270.812688327_n0jv.jpg?version=0'
-      },
-      {
-        title: 'Roman Numerals Recursive',
-        intro: 'Dapat menyelesaikan masalah dalam kode, mengerti logic dasar problem solving',
-        content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure esse corporis inventore maiores repellendus repellat provident nesciunt praesentium aut, totam, facilis corrupti perspiciatis repudiandae? Nemo labore eveniet hic quod ab.',
-        phase: 'Phase 1',
-        image: 'https://www.wikihow.com/images/thumb/6/65/Use-Roman-Numerals-Step-1-Version-3.jpg/aid600223-v4-728px-Use-Roman-Numerals-Step-1-Version-3.jpg'
-      }
-    ]
+    currentMateries: '',
+    materis: []
   },
   mutations: {
-
+    currMateriMutation (state, payload) {
+      console.log('mutation get payload => ', payload)
+      state.currentMateries = payload
+    },
+    pushDataMutation (state, payload) {
+      state.materis = payload
+    }
   },
   actions: {
-
+    getAllMateri ({commit}, payload) {
+      axios.get('http://localhost:3000/topics', {
+        headers: { token: payload }
+      })
+        .then((response) => {
+          let data = response.data.topicData
+          console.log(data)
+          commit('pushDataMutation', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    currentMateri ({commit}, payload) {
+      console.log('masuk action store')
+      commit('currMateriMutation', payload)
+    }
   }
 })
