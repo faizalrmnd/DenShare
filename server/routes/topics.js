@@ -1,6 +1,17 @@
 var express = require('express');
 var router = express.Router();
-const topicController = require('../controllers/topicController');
+const { addTopic } = require('../controllers/topicController');
+
+const multer = require('multer')
+const uploadMidleware = require('../middleware/upload')
+
+const uploaderMem = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+      fileSize: 10 * 1024 * 1024
+  }
+})
+
 // const middleware = require('../middlewares/auth')
 
 // /* GET users listing. */
@@ -10,5 +21,8 @@ const topicController = require('../controllers/topicController');
 // router.put('/update', middleware.isUser, questionController.updateQuestion);
 // router.delete('/delete', middleware.isUser, questionController.removeQuestion);
 
+
+/* GET main endpoint. */
+router.post('/', uploaderMem.single('image'), uploadMidleware.upload, addTopic)
 
 module.exports = router;
