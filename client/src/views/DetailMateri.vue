@@ -13,6 +13,8 @@
       </div>
     </div>
 
+    <button @click="lookDetail(currentMateries)" class="btn btn-lg btn-primary">SHARE LINK</button>
+
     <div v-if="whosloggedin === 'instructor'">
                   <div class="form-group">
               <label for="exampleInputEmail1">Title</label>
@@ -58,14 +60,17 @@ export default {
       intro: this.$store.state.currentMateries.intro,
       phase: this.$store.state.currentMateries.phase
     }
-  }
-  ,
+  },
   computed: {
     ...mapState([
       'currentMateries'
     ])
   },
   methods: {
+    lookDetail (data) {
+      console.log(data.id)
+      this.$router.push(`/detail/${data.id}`)
+    },
     editMateri: function (id) {
       let token = localStorage.getItem('token')
       let payload = {
@@ -99,6 +104,10 @@ export default {
     }
   },
   created () {
+    let currURL = window.location.href
+    console.log('ini current URL nya')
+    console.log(currURL)
+
     let role = localStorage.getItem('role')
     let self = this
 
