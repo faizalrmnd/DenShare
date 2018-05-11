@@ -26,7 +26,7 @@
 
 <script>
 export default {
-
+    component: { LoginFB }
 }
 </script>
 
