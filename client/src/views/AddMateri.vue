@@ -37,10 +37,6 @@
         </div>
         <div class="col-md-6">
             <div style="width:50%" class="about">
-              {{ titles }}
-              {{ content }}
-              {{ intro }}
-              {{ phase }}
             </div>
         </div>
       </div>
@@ -60,6 +56,11 @@ export default {
       phase: ''
     }
   },
+  created () {
+    if(!localStorage.getItem('token') && localStorage.getItem('role') != 'instructor') {
+      this.$router.push('/')
+    }
+  },
   methods: {
     addMateri: function () {
       const fileInput = document.querySelector('#image')
@@ -74,6 +75,7 @@ export default {
 
       this.$store.dispatch('addMateri', payload)
       
+      this.$router.push('/materi')
     }
   }
 

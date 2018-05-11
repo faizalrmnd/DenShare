@@ -64,7 +64,9 @@ module.exports = {
       .findOne({ email: req.body.email})
       .then(user => {
         if(bcrypt.compareSync(req.body.password, user.password)){
-          let token = jwt.sign({ id: user._id, email: user.email, role: user.role, phase: result.phase }, process.env.SECRET)
+          
+          let token = jwt.sign({ id: user._id, email: user.email, role: user.role, phase: user.phase }, process.env.SECRET)
+          
           let userInfo = {
             name: user.name,
             email: user.username,

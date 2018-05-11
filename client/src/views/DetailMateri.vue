@@ -84,15 +84,18 @@ export default {
       })
     },
     deleteMateri (id) {
-      let token = localStorage.getItem('token')
-      axios.delete(`http://localhost:3000/topics/delete/${id}`, { headers: { token: token } })
-      .then((response) => {
-        console.log(response)
-        this.$router.push('/materi')
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+      if(confirm('yakin mau hapus?')) {
+        let token = localStorage.getItem('token')
+        axios.delete(`http://localhost:3000/topics/delete/${id}`, { headers: { token: token } })
+        .then((response) => {
+          console.log(response)
+          this.$router.push('/materi')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      }
+      
     }
   },
   created () {

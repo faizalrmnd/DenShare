@@ -7,16 +7,32 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+import axios from 'axios'
 
 export default {
   name: 'home',
   data () {
     return {
-      myHTML: ''
+      email: '',
+      password: ''
     }
   },
   components: {
     HelloWorld
+  },
+  methods: {
+    login: function () {
+      axios.post('http://localhost:3000/login', {
+        email: this.email,
+        password: this.password
+      })
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
   }
 
 }

@@ -26,7 +26,6 @@ module.exports = {
   },
   readTopicByPhase: function(req, res) {
     let token = req.headers.token;
-    console.log('masuk fungsi')
     jwt.verify(token, process.env.SECRET, function(err, decoded) {
       console.log(decoded)
 

@@ -41,7 +41,6 @@ export default new Vuex.Store({
 
       axios.post('http://localhost:3000/topics/add', payload, { headers: { token: token } })
         .then(function (response) {
-          // commit('setUser', response.data.data)
           console.log(response.data.data)
         })
         .catch(function (error) {
