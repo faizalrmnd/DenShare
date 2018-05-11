@@ -1,15 +1,15 @@
 <template>
   <div class="list-materi">
     <div class="container">
-      <h1>Daftar Materi Phase {{ materis[0].phase }} </h1>
+      <h1>Daftar Materi</h1>
       <div class="row list">
         <ul>
           <li v-for="(materi, index) in materis" :key="index">
             <div class="card">
-              <img class="card-img-top" :src="materi.image" alt="Card image cap" @click="detailMateri(materi, index)">
+              <img class="card-img-top" :src="materi.image" alt="Card image cap" @click="detailMateri(materi)">
               <div class="card-body">
                 <!-- <h5 class="card-title"><router-link class="title" to="detailmateri"> {{ materi.title }} </router-link></h5> -->
-                <h5 class="card-title" @click="detailMateri(materi, index)">{{ materi.title }}</h5>
+                <h5 class="card-title" @click="detailMateri(materi)">{{ materi.title }}</h5>
                 <!-- <p class="card-text">{{ introLimiter(materi.intro) }}</p> -->
                 <p class="card-text">{{ materi.intro }}</p>
               </div>
@@ -36,6 +36,7 @@ export default {
     let payload = localStorage.getItem('token')
     let phase = localStorage.getItem('phase')
     let role = localStorage.getItem('role')
+    console.log('phase ===============>', phase)
 
     if (role != 'instructor') {
       this.$store.dispatch('getMateriByPhase', payload)
@@ -48,17 +49,6 @@ export default {
       'materis'
     ])
   },
-  // mounted() {
-  //   console.log('=====>',this.$store.state.materis)
-  //   let phase = localStorage.getItem('phase')
-  //   let data = this.$store.state.materis
-  //   data.forEach(dataNya => {
-  //     if(dataNya.phase == phase) {
-  //       this.dataByPhase.push(dataNya)
-  //     }
-  //   });
-  //   // this.dataByPhase.push(this.$store.state.materis)
-  // },
   methods: {
     ...mapActions([
       'currentMateri'
@@ -67,9 +57,9 @@ export default {
       // return val.substring(0, 50) + '...'
       return val
     },
-    detailMateri (materi, index) {
-      this.$store.dispatch('currentMateri', materi)
-      this.$router.push('/detailmateri')
+    detailMateri (materi) {
+      this.$store.dispatch('currentMateri', materi._id)
+      this.$router.push(`/detailmateri`)
 
       console.log('materi ===> ', materi)
     }

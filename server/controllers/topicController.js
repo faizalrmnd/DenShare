@@ -1,7 +1,6 @@
 const topic = require("../models/topics")
 const jwt = require('jsonwebtoken');
 
-
 module.exports = {
   addTopic: function(req, res) {
     const { title, content, phase, intro } = req.body
@@ -25,9 +24,10 @@ module.exports = {
       })
   },
   readTopicByPhase: function(req, res) {
+    console.log('masuk ke controler by phase')
     let token = req.headers.token;
     jwt.verify(token, process.env.SECRET, function(err, decoded) {
-      console.log(decoded)
+      console.log('=====>',decoded.phase)
 
       topic
       .find({ phase: decoded.phase })
