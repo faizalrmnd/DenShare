@@ -1,7 +1,7 @@
 <template>
   <div class="list-materi">
     <div class="container">
-      <h1>Daftar Materi</h1>
+      <h1>Daftar Materi Phase {{ materis[0].phase }} </h1>
       <div class="row list">
         <ul>
           <li v-for="(materi, index) in materis" :key="index">
